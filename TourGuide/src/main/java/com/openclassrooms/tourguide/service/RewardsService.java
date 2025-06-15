@@ -20,7 +20,6 @@ public class RewardsService {
 	// proximity in miles
     private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
-	private int attractionProximityRange = 200;
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
 	
@@ -53,15 +52,11 @@ public class RewardsService {
 		}
 	}
 	
-	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
-		return getDistance(attraction, location) > attractionProximityRange ? false : true;
-	}
-	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
-	private int getRewardPoints(Attraction attraction, User user) {
+	public int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	
