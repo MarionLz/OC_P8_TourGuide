@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ebff52bd-8bc4-46a6-be9a-c60643e2b3a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/RewardsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/RewardsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestRewardsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestRewardsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestTourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestTourGuideService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +51,7 @@
     "JUnit.tourguide in tourguide.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/getNearbyAttractions__implementation",
+    "git-widget-placeholder": "feature/code__fix__for__test__validation",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Workspace/intellij/OC_P7_Poseidon",
     "project.structure.last.edited": "Project",
@@ -58,7 +60,7 @@
     "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.TourguideApplication">
+  <component name="RunManager" selected="JUnit.TestTourGuideService.getTripDeals">
     <configuration name="TourguideApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TourguideApplication" />
       <module name="tourguide" />
@@ -137,9 +139,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestTourGuideService.getTripDeals" />
         <item itemvalue="Application.TourguideApplication" />
         <item itemvalue="JUnit.TestTourGuideService.getNearbyAttractions" />
-        <item itemvalue="JUnit.TestTourGuideService.getTripDeals" />
         <item itemvalue="JUnit.TestRewardsService.nearAllAttractions" />
         <item itemvalue="JUnit.TestRewardsService" />
       </list>
