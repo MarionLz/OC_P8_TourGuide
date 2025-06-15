@@ -1,5 +1,6 @@
 package com.openclassrooms.tourguide.service;
 
+import com.openclassrooms.tourguide.DTO.NearByAttractionDTO;
 import com.openclassrooms.tourguide.helper.InternalTestHelper;
 import com.openclassrooms.tourguide.tracker.Tracker;
 import com.openclassrooms.tourguide.user.User;
@@ -7,14 +8,7 @@ import com.openclassrooms.tourguide.user.UserReward;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,6 +21,7 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 
+import org.w3c.dom.Attr;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
 
@@ -95,12 +90,34 @@ public class TourGuideService {
 		return visitedLocation;
 	}
 
-	public List<Attraction> getNearByAttractions(VisitedLocation visitedLocation) {
-		List<Attraction> nearbyAttractions = new ArrayList<>();
-		for (Attraction attraction : gpsUtil.getAttractions()) {
-			if (rewardsService.isWithinAttractionProximity(attraction, visitedLocation.location)) {
-				nearbyAttractions.add(attraction);
-			}
+	public List<NearByAttractionDTO> getNearByAttractions(VisitedLocation visitedLocation, User user) {
+		List<NearByAttractionDTO> nearbyAttractions = new ArrayList<>();
+		List<Attraction> attractions = gpsUtil.getAttractions();
+		Map<Attraction, Double> attractionUserDistances = new HashMap<>();
+
+		for (Attraction attraction : attractions) {
+			attractionUserDistances.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+		}
+
+		List<Map.Entry<Attraction, Double>> sortedList = new ArrayList<>(attractionUserDistances.entrySet());
+		sortedList.sort(Comparator.comparingDouble(Map.Entry::getValue));
+
+		List<Map.Entry<Attraction, Double>> top5Closest = sortedList.subList(0, Math.min(5, sortedList.size()));
+
+		for (Map.Entry<Attraction, Double> entry : top5Closest) {
+			Attraction attraction = entry.getKey();
+			int rewardPoints = rewardsService.getRewardPoints(attraction, user);
+
+			NearByAttractionDTO nearByAttractionDTO = new NearByAttractionDTO();
+			nearByAttractionDTO.setAttractionName(attraction.attractionName);
+			nearByAttractionDTO.setAttractionLatitude(attraction.latitude);
+			nearByAttractionDTO.setAttractionLongitude(attraction.longitude);
+			nearByAttractionDTO.setUserLatitude(visitedLocation.location.latitude);
+			nearByAttractionDTO.setUserLongitude(visitedLocation.location.longitude);
+			nearByAttractionDTO.setDistanceInMiles(entry.getValue());
+			nearByAttractionDTO.setRewardPoints(rewardPoints);
+
+			nearbyAttractions.add(nearByAttractionDTO);
 		}
 
 		return nearbyAttractions;
