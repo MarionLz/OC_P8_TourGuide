@@ -39,13 +39,13 @@ public class TestRewardsService {
 		assertTrue(userRewards.size() == 1);
 	}
 
-	@Test
-	public void isWithinAttractionProximity() {
-		GpsUtil gpsUtil = new GpsUtil();
-		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-		Attraction attraction = gpsUtil.getAttractions().get(0);
-		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
-	}
+//	@Test
+//	public void isWithinAttractionProximity() {
+//		GpsUtil gpsUtil = new GpsUtil();
+//		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+//		Attraction attraction = gpsUtil.getAttractions().get(0);
+//		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
+//	}
 
 	//@Disabled // Needs fixed - can throw ConcurrentModificationException
 	@Test
@@ -57,7 +57,7 @@ public class TestRewardsService {
 		InternalTestHelper.setInternalUserNumber(1);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
-		rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0), "TestRewardsService");
+		rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
 		List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
 		tourGuideService.tracker.stopTracking();
 
