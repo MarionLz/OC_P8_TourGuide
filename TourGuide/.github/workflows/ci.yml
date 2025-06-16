@@ -1,0 +1,38 @@
+name: CI - Build Spring Boot App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔁 Checkout du code
+        uses: actions/checkout@v3
+
+      - name: ☕ Configuration de Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: ⚙️ Compilation de l'application
+        run: mvn compile
+
+      - name: ✅ Exécution des tests unitaires
+        run: mvn test
+
+      - name: 🏗️ Construction du JAR exécutable
+        run: mvn package -DskipTests
+
+      - name: 📦 Téléversement du JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: tourguide-jar
+          path: |
+            target/tourguide-0.0.1-SNAPSHOT.jar
+          if-no-files-found: error
