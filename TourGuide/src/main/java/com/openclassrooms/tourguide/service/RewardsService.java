@@ -2,6 +2,10 @@ package com.openclassrooms.tourguide.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -23,11 +27,13 @@ public class RewardsService {
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
 	private final List<Attraction> cachedAttractions;
+	private final ExecutorService executor;
 	
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
 		this.cachedAttractions = gpsUtil.getAttractions();
+		this.executor = Executors.newFixedThreadPool(100);
 	}
 	
 	public void setProximityBuffer(int proximityBuffer) {
@@ -52,6 +58,18 @@ public class RewardsService {
 				}
 			}
 		}
+	}
+
+	public CompletableFuture<Void> calculateRewardsAsync(User user) {
+		return CompletableFuture.runAsync(() -> calculateRewards(user), executor);
+	}
+
+	public void calculateRewardsForAllUsers(List<User> users) {
+		List<CompletableFuture<Void>> futures = users.stream()
+				.map(this::calculateRewardsAsync)
+				.toList();
+
+		CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 	}
 	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
