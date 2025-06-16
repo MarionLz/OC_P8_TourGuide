@@ -2,7 +2,11 @@ package com.openclassrooms.tourguide.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 
+import com.openclassrooms.tourguide.ExecutorServiceProvider;
 import org.springframework.stereotype.Service;
 
 import gpsUtil.GpsUtil;
@@ -38,18 +42,40 @@ public class RewardsService {
 	
 	public void calculateRewards(User user) {
 
-		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
-		List<Attraction> attractions = gpsUtil.getAttractions();
+		ExecutorService executor = ExecutorServiceProvider.getExecutor(); // use global executor
 
-		for(VisitedLocation visitedLocation : userLocations) {
-			for(Attraction attraction : attractions) {
-				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
-					if(nearAttraction(visitedLocation, attraction)) {
-						user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
+
+		CompletableFuture<List<Attraction>> future = CompletableFuture.supplyAsync(() ->
+						gpsUtil.getAttractions(), executor);
+
+		future.thenAccept(attractions -> {
+			synchronized (user) {
+				for(VisitedLocation visitedLocation : userLocations) {
+					for(Attraction attraction : attractions) {
+						if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+							if(nearAttraction(visitedLocation, attraction)) {
+								user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+							}
+						}
 					}
 				}
 			}
-		}
+		});
+
+
+//		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
+//		List<Attraction> attractions = gpsUtil.getAttractions();
+//
+//		for(VisitedLocation visitedLocation : userLocations) {
+//			for(Attraction attraction : attractions) {
+//				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+//					if(nearAttraction(visitedLocation, attraction)) {
+//						user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+//					}
+//				}
+//			}
+//		}
 	}
 	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {

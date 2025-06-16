@@ -1,6 +1,7 @@
 package com.openclassrooms.tourguide.service;
 
 import com.openclassrooms.tourguide.DTO.NearByAttractionDTO;
+import com.openclassrooms.tourguide.ExecutorServiceProvider;
 import com.openclassrooms.tourguide.helper.InternalTestHelper;
 import com.openclassrooms.tourguide.tracker.Tracker;
 import com.openclassrooms.tourguide.user.User;
@@ -9,8 +10,15 @@ import com.openclassrooms.tourguide.user.UserReward;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +32,8 @@ import gpsUtil.location.VisitedLocation;
 import org.w3c.dom.Attr;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
+
+import static com.openclassrooms.tourguide.ExecutorServiceProvider.executor;
 
 @Service
 public class TourGuideService {
@@ -107,11 +117,40 @@ public class TourGuideService {
 	}
 
 	public VisitedLocation trackUserLocation(User user) {
-		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
-		user.addToVisitedLocations(visitedLocation);
-		rewardsService.calculateRewards(user);
-		return visitedLocation;
+		ExecutorService executor = ExecutorServiceProvider.getExecutor(); // Global executor
+
+		return CompletableFuture
+				.supplyAsync(() -> gpsUtil.getUserLocation(user.getUserId()), executor)
+				.thenApply(location -> {
+					synchronized (user) {
+						user.addToVisitedLocations(location);
+					}
+					return location;
+				})
+
+						CompletableFuture.runAsync(() -> {
+							try {
+								rewardsService.calculateRewards(user);
+							} catch (Exception e) {
+								logger.error("Reward calculation failed", e);
+							}
+						}, executor);
+				);
+
 	}
+
+//		} catch (InterruptedException e) {
+//			Thread.currentThread().interrupt(); // best practice
+//			throw new RuntimeException("Thread interrupted while tracking location", e);
+//		} catch (ExecutionException e) {
+//			throw new RuntimeException("Failed to track user location", e.getCause());
+//		}
+
+//		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
+//		user.addToVisitedLocations(visitedLocation);
+//		rewardsService.calculateRewards(user);
+//		return visitedLocation;
+	//}
 
 	public List<NearByAttractionDTO> getNearByAttractions(VisitedLocation visitedLocation, User user) {
 		List<NearByAttractionDTO> nearbyAttractions = new ArrayList<>();

@@ -7,12 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.sun.source.tree.CatchTree;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
+import org.junit.platform.commons.function.Try;
 import rewardCentral.RewardCentral;
 import com.openclassrooms.tourguide.helper.InternalTestHelper;
 import com.openclassrooms.tourguide.service.RewardsService;
@@ -27,7 +29,7 @@ public class TestRewardsService {
 		GpsUtil gpsUtil = new GpsUtil();
 		RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 
-		InternalTestHelper.setInternalUserNumber(0);
+		InternalTestHelper.setInternalUserNumber(1);
 		TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
@@ -36,6 +38,12 @@ public class TestRewardsService {
 		tourGuideService.trackUserLocation(user);
 		List<UserReward> userRewards = user.getUserRewards();
 		tourGuideService.tracker.stopTracking();
+		try 	{
+			Thread.currentThread().sleep(1000);
+		} catch (Exception e)
+		{
+			throw new RuntimeException("Thread sleep interrupted");
+		}
 		assertTrue(userRewards.size() == 1);
 	}
 
@@ -47,7 +55,6 @@ public class TestRewardsService {
 //		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
 //	}
 
-	//@Disabled // Needs fixed - can throw ConcurrentModificationException
 	@Test
 	public void nearAllAttractions() {
 		GpsUtil gpsUtil = new GpsUtil();
