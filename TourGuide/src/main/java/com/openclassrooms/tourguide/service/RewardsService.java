@@ -1,6 +1,11 @@
 package com.openclassrooms.tourguide.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -19,13 +24,16 @@ public class RewardsService {
 	// proximity in miles
     private int defaultProximityBuffer = 10;
 	private int proximityBuffer = defaultProximityBuffer;
-	private int attractionProximityRange = 200;
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
+	private final List<Attraction> cachedAttractions;
+	private final ExecutorService executor;
 	
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
+		this.cachedAttractions = gpsUtil.getAttractions();
+		this.executor = Executors.newFixedThreadPool(100);
 	}
 	
 	public void setProximityBuffer(int proximityBuffer) {
@@ -37,9 +45,10 @@ public class RewardsService {
 	}
 	
 	public void calculateRewards(User user) {
-		List<VisitedLocation> userLocations = user.getVisitedLocations();
-		List<Attraction> attractions = gpsUtil.getAttractions();
-		
+
+		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
+		List<Attraction> attractions = cachedAttractions;
+
 		for(VisitedLocation visitedLocation : userLocations) {
 			for(Attraction attraction : attractions) {
 				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
@@ -50,16 +59,24 @@ public class RewardsService {
 			}
 		}
 	}
-	
-	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
-		return getDistance(attraction, location) > attractionProximityRange ? false : true;
+
+	public CompletableFuture<Void> calculateRewardsAsync(User user) {
+		return CompletableFuture.runAsync(() -> calculateRewards(user), executor);
+	}
+
+	public void calculateRewardsForAllUsers(List<User> users) {
+		List<CompletableFuture<Void>> futures = users.stream()
+				.map(this::calculateRewardsAsync)
+				.toList();
+
+		CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 	}
 	
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
-	private int getRewardPoints(Attraction attraction, User user) {
+	public int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	
