@@ -22,10 +22,12 @@ public class RewardsService {
 	private int proximityBuffer = defaultProximityBuffer;
 	private final GpsUtil gpsUtil;
 	private final RewardCentral rewardsCentral;
+	private final List<Attraction> cachedAttractions;
 	
 	public RewardsService(GpsUtil gpsUtil, RewardCentral rewardCentral) {
 		this.gpsUtil = gpsUtil;
 		this.rewardsCentral = rewardCentral;
+		this.cachedAttractions = gpsUtil.getAttractions();
 	}
 	
 	public void setProximityBuffer(int proximityBuffer) {
@@ -39,7 +41,7 @@ public class RewardsService {
 	public void calculateRewards(User user) {
 
 		List<VisitedLocation> userLocations = new ArrayList<>(user.getVisitedLocations());
-		List<Attraction> attractions = gpsUtil.getAttractions();
+		List<Attraction> attractions = cachedAttractions;
 
 		for(VisitedLocation visitedLocation : userLocations) {
 			for(Attraction attraction : attractions) {

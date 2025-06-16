@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ebff52bd-8bc4-46a6-be9a-c60643e2b3a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/RewardsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/RewardsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestPerformance.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestPerformance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestRewardsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestRewardsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestTourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TourGuide/src/test/java/com/openclassrooms/tourguide/TestTourGuideService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2y0mkYJBsw5Kjq7FJImeyG9Y6kx" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -43,15 +47,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.TourguideApplication.executor": "Run",
+    "JUnit.TestPerformance.highVolumeTrackLocation.executor": "Run",
     "JUnit.TestRewardsService.executor": "Run",
     "JUnit.TestRewardsService.nearAllAttractions.executor": "Run",
+    "JUnit.TestRewardsService.userGetRewards.executor": "Run",
     "JUnit.TestTourGuideService.executor": "Run",
     "JUnit.TestTourGuideService.getNearbyAttractions.executor": "Run",
     "JUnit.TestTourGuideService.getTripDeals.executor": "Run",
     "JUnit.tourguide in tourguide.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/code__fix__for__test__validation",
+    "git-widget-placeholder": "feature/performance__improvement",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Workspace/intellij/OC_P7_Poseidon",
     "project.structure.last.edited": "Project",
@@ -60,9 +67,8 @@
     "settings.editor.selected.configurable": "MavenSettings"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.TestTourGuideService.getTripDeals">
-    <configuration name="TourguideApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TourguideApplication" />
+  <component name="RunManager" selected="JUnit.TestPerformance.highVolumeTrackLocation">
+    <configuration name="TestPerformance.highVolumeTrackLocation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tourguide" />
       <extension name="coverage">
         <pattern>
@@ -70,6 +76,10 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
+      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestPerformance" />
+      <option name="METHOD_NAME" value="highVolumeTrackLocation" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -105,7 +115,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestTourGuideService.getNearbyAttractions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestRewardsService.userGetRewards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tourguide" />
       <extension name="coverage">
         <pattern>
@@ -114,8 +124,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
-      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestTourGuideService" />
-      <option name="METHOD_NAME" value="getNearbyAttractions" />
+      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestRewardsService" />
+      <option name="METHOD_NAME" value="userGetRewards" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -139,10 +149,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestTourGuideService.getTripDeals" />
-        <item itemvalue="Application.TourguideApplication" />
-        <item itemvalue="JUnit.TestTourGuideService.getNearbyAttractions" />
+        <item itemvalue="JUnit.TestPerformance.highVolumeTrackLocation" />
         <item itemvalue="JUnit.TestRewardsService.nearAllAttractions" />
+        <item itemvalue="JUnit.TestRewardsService.userGetRewards" />
+        <item itemvalue="JUnit.TestTourGuideService.getTripDeals" />
         <item itemvalue="JUnit.TestRewardsService" />
       </list>
     </recent_temporary>
