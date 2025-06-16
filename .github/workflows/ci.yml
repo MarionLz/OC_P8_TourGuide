@@ -20,6 +20,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: 📦 Installation manuelle des dépendances locales
+        run: |
+          mvn install:install-file -Dfile=libs/gpsUtil-1.0.0.jar -DgroupId=gpsUtil -DartifactId=gpsUtil -Dversion=1.0.0 -Dpackaging=jar
+          mvn install:install-file -Dfile=libs/tripPricer-1.0.0.jar -DgroupId=tripPricer -DartifactId=tripPricer -Dversion=1.0.0 -Dpackaging=jar
+          mvn install:install-file -Dfile=libs/rewardCentral-1.0.0.jar -DgroupId=rewardCentral -DartifactId=rewardCentral -Dversion=1.0.0 -Dpackaging=jar
+
       - name: ⚙️ Compilation de l'application
         run: mvn compile
 
