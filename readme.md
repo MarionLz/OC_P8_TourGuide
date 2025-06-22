@@ -37,7 +37,7 @@ Les objectifs suivants ne sont pas couverts par ce projet :
 
 ## 🗺️ Schéma de conception technique
 
-![Schema de conception technique](docs/img/schema_technique.png)
+![Schema de conception technique](docs/img/shema_technique.png)
 
 **Légende :**
 
