@@ -120,6 +120,7 @@ public class TourGuideService {
 
 	public CompletableFuture<VisitedLocation> trackUserLocationAsync(User user) {
 		return CompletableFuture.supplyAsync(() -> trackUserLocation(user), executor); // 👈 ici
+
 	}
 
 	public void trackAllUsersAsync(List<User> users) {
