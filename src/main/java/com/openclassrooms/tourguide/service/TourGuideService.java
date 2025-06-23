@@ -83,32 +83,29 @@ public class TourGuideService {
 		int cumulativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
 
 		List<Provider> allProviders = new ArrayList<>();
-		Set<String> usedProviderNames = new HashSet<>();
 
-		// Appeler getPrice jusqu'à ce qu'on ait 10 providers
 		while (allProviders.size() < 10) {
-			List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),
-					user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
-					user.getUserPreferences().getTripDuration(), cumulativeRewardPoints);
-
-			// Ajouter uniquement les providers avec des noms non encore utilisés
-			for (Provider p : providers) {
-//				if (!usedProviderNames.contains(p.name)) {
-//					allProviders.add(p);
-//					usedProviderNames.add(p.name);
-//				}
-				allProviders.add(p);
-				if (allProviders.size() == 10) break;
+			List<Provider> batch = tripPricer.getPrice(
+					tripPricerApiKey,
+					user.getUserId(),
+					user.getUserPreferences().getNumberOfAdults(),
+					user.getUserPreferences().getNumberOfChildren(),
+					user.getUserPreferences().getTripDuration(),
+					cumulativeRewardPoints
+			);
+			int remaining = 10 - allProviders.size();
+			allProviders.addAll(
+					batch.stream()
+							.limit(remaining)
+							.collect(Collectors.toList())
+			);
+			if (batch.isEmpty()) {
+				break;
 			}
 		}
 
 		user.setTripDeals(allProviders);
 		return allProviders;
-//		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),
-//				user.getUserPreferences().getNumberOfAdults(), user.getUserPreferences().getNumberOfChildren(),
-//				user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
-//		user.setTripDeals(providers);
-//		return providers;
 	}
 
 	public VisitedLocation trackUserLocation(User user) {
@@ -120,6 +117,7 @@ public class TourGuideService {
 
 	public CompletableFuture<VisitedLocation> trackUserLocationAsync(User user) {
 		return CompletableFuture.supplyAsync(() -> trackUserLocation(user), executor); // 👈 ici
+
 	}
 
 	public void trackAllUsersAsync(List<User> users) {
