@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ebff52bd-8bc4-46a6-be9a-c60643e2b3a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/openclassrooms/tourguide/service/TourGuideService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,28 +44,24 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.TourguideApplication.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TestPerformance.highVolumeGetRewards.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TestPerformance.highVolumeTrackLocation.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TestRewardsService.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TestRewardsService.nearAllAttractions.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TestRewardsService.userGetRewards.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TestTourGuideService.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TestTourGuideService.getNearbyAttractions.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TestTourGuideService.getTripDeals.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.tourguide in tourguide.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/code__fix__for__test__validation&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Workspace/intellij/OC_P8_TourGuide&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Workspace/intellij/OC_P7_Poseidon&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.TestRewardsService.userGetRewards">
+  <component name="RunManager" selected="JUnit.TestTourGuideService.getTripDeals">
     <configuration name="TourguideApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TourguideApplication" />
       <module name="tourguide" />
@@ -79,7 +75,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestPerformance.highVolumeGetRewards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestRewardsService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tourguide" />
       <extension name="coverage">
         <pattern>
@@ -88,25 +84,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
-      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestPerformance" />
-      <option name="METHOD_NAME" value="highVolumeGetRewards" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestPerformance.highVolumeTrackLocation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tourguide" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.openclassrooms.tourguide.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
-      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestPerformance" />
-      <option name="METHOD_NAME" value="highVolumeTrackLocation" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestRewardsService" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -127,7 +106,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestRewardsService.userGetRewards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestTourGuideService.getNearbyAttractions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="tourguide" />
       <extension name="coverage">
         <pattern>
@@ -136,8 +115,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
-      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestRewardsService" />
-      <option name="METHOD_NAME" value="userGetRewards" />
+      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestTourGuideService" />
+      <option name="METHOD_NAME" value="getNearbyAttractions" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestTourGuideService.getTripDeals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tourguide" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.openclassrooms.tourguide.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.openclassrooms.tourguide" />
+      <option name="MAIN_CLASS_NAME" value="com.openclassrooms.tourguide.TestTourGuideService" />
+      <option name="METHOD_NAME" value="getTripDeals" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -145,11 +140,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestRewardsService.userGetRewards" />
+        <item itemvalue="JUnit.TestTourGuideService.getTripDeals" />
+        <item itemvalue="JUnit.TestTourGuideService.getNearbyAttractions" />
         <item itemvalue="Application.TourguideApplication" />
-        <item itemvalue="JUnit.TestPerformance.highVolumeGetRewards" />
-        <item itemvalue="JUnit.TestPerformance.highVolumeTrackLocation" />
         <item itemvalue="JUnit.TestRewardsService.nearAllAttractions" />
+        <item itemvalue="JUnit.TestRewardsService" />
       </list>
     </recent_temporary>
   </component>
